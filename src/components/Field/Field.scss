@@ -5,7 +5,26 @@
     display:grid;
     grid-gap:10px;
     margin: auto;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     border: 1px solid black;
     padding: 10px;
+}
+.items {
+    width: calc(100vh - 240px);
+    max-width: calc(100vw - 40px);
+    margin: auto;
+    padding-top: 10px;
+
+    &__up {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        font-size: 20px;
+    }
+    &__down {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        font-size: 20px;
+    }
 }

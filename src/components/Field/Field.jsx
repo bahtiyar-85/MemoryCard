@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import './Field.scss'
+import { useTimer } from 'use-timer';
+import { setPlayerToStorage } from '../../js/localStorage';
+import { useNavigate} from 'react-router-dom';
 import Card from '../Card/Card';
+import Modal from '../Modal/Modal';
+import './Field.scss'
 
 export const fyShuffle = (arr) => {
     let i = arr.length;
@@ -17,42 +20,32 @@ const Field = ({array, setArray, player}) => {
     const [foundCards, setFoundCards] = useState([]);
     const [win, setWin] = useState(false)
     const [count, setCount] = useState(0)
-    const [time, setTime] = useState({})
-    const location = useLocation()
-    let timer = null
-    let timeCount 
-
+    const [showModal, setShowModal] = useState(false)
+    const navigate = useNavigate()   
+    const { time, start, pause, reset, status } = useTimer();
+   
     const setDefaultValues = () => {
+        setShowModal(false)
+        setArray(fyShuffle(array))
         setFoundCards([]);
         setActiveCards([])
         setCount(0);
+        reset()
+        start()
     }
 
     const convert = (num) => {
         return num?.toString().padStart(2, "0");
     }
 
-    const timerInit = () => {
-        timeCount = 0
-        timer = setInterval(function () {   
-            setTime({
-                minutes:Math.floor(timeCount/60), 
-                seconds: timeCount % 60}
-            )
-            timeCount++
-            if(timeCount === 3600) timeCount = 0 
-        }, 1000)
-    }
-
-    const handlerCardClick = (index) => {
-       
+    const handlerCardClick = (index) => { 
         if (activeCards.length === 0) {
             setActiveCards([index]);
         }
         if (activeCards.length === 1) {
             const firstIndex = activeCards[0];
             const secondsIndex = index;
-          
+            if(firstIndex === secondsIndex) return 0
             if (array[firstIndex].name === array[secondsIndex].name) {
               if (foundCards.length + 2 === array.length) {
                 setWin(true);
@@ -66,26 +59,23 @@ const Field = ({array, setArray, player}) => {
         }
         setCount(prev => prev + 1)
     }
-
+    
     useEffect(() => {
         if(win){
             setTimeout(() => {
-                clearInterval(timer)
-                timerInit()
-                alert("You are win! Try again")
-                setArray(fyShuffle(array))
-                setDefaultValues()
+                setShowModal(true)
+                pause()
+                setPlayerToStorage(player, time*count)
             }, 500)
         } 
         setWin(false)   
-    }, [win] )
+    }, [win])
 
     useEffect(() => {
-        if(location.pathname === "/field") {
-            if(!timer) timerInit()
-        }
-    }, [location])
-   
+        start()
+        if(array.length===0) navigate('/')
+    }, [])
+
     return (
         <>
             <div className='field'>
@@ -100,12 +90,34 @@ const Field = ({array, setArray, player}) => {
                             key={index} 
                         />
                     )})}
+              
+            </div>
             <div className="items">
+                <div className="items__up">
                     <span>Player: {player}</span>
                     <span>Clicks: {count}</span>
-                    <span>Time: {convert(time.minutes)}:{convert(time.seconds)}</span>
+                    <span>Time: {convert(Math.floor(time/60))}:{convert( time % 60)}</span> 
+
+                </div>
+                <div className="items__down">
+                    <button className='button-22' onClick={setDefaultValues}>New start</button>
+                    <button className='button-22' onClick={()=> navigate('/list')}>to Top List</button>
+                    <button className='button-22' onClick={()=> navigate('/')}>to Main</button>
                 </div>
             </div>
+            {/* <button onClick={() => {
+                        pause()
+                        setShowModal(true)
+                        setPlayerToStorage(player, time*count)
+                    }
+                        }>Open</button> */}
+            <Modal 
+                active={showModal} 
+                setActive={setShowModal} 
+                setDefaultValues={setDefaultValues}
+                count={count}
+                time={time}
+            />
         </>
     );
 };

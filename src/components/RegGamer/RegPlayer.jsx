@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { fyShuffle } from '../Field/Field';
 import "./RegPlayer.scss";
@@ -8,7 +8,7 @@ const RegPlayer = ({setArray, setPlayer}) => {
     const [value, setValue] = useState('')
 
     const getImage = async () => {
-        await fetch("https://pokeapi.co/api/v2/pokemon?limit=18")
+        await fetch("https://pokeapi.co/api/v2/pokemon?limit=15")
             .then(responce => responce.json())
             .then(data => setArray(fyShuffle(data.results.concat(data.results))))
             .catch(error => console.log(error))
@@ -20,9 +20,13 @@ const RegPlayer = ({setArray, setPlayer}) => {
         } else {
             navigate('/field')
             setPlayer(value)
-            getImage()
         }
     }
+
+    useEffect(()=> {
+        getImage()
+    },[])
+
     return (
         <div className='main'>
             <h1 className='main__title'>Memory Game</h1>
@@ -37,7 +41,7 @@ const RegPlayer = ({setArray, setPlayer}) => {
                 <button className='button-78 main__btn-play' onClick={handlerPlayClick}>Play</button>
             </div>
             
-            <Link className='main__link' to="/">Top list</Link>
+            <Link className='main__link' to="/list">Top list</Link>
         </div>
     );
 };

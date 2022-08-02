@@ -1,0 +1,80 @@
+.container {
+    max-width: 800px;
+    width: 90vw;
+    margin: 0 auto;
+}
+.top-list {
+    &__title {
+        font-size: 32px;
+        text-align: center;
+        margin: 40px 0;
+        text-transform: uppercase;
+        color: rgb(185, 85, 145);
+    }
+    &__list {
+        list-style-type: none; 
+        counter-reset: num;
+        margin: 0 0 0 45px;
+        padding: 15px 0 5px 0;
+        font-size: 16px;
+
+        &-item{
+            position: relative;	
+            margin: 0 0 0 0;
+            padding: 0 0 15px 0;
+            line-height: 1.4;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+           
+            &:before{
+                content: counter(num); 
+                counter-increment: num;
+                display: inline-block;
+                position: absolute;
+                top: 0;
+                left: -38px;
+                width: 28px;
+                height: 28px;
+                background: #ef6780;
+                color: #fff;
+                text-align: center;
+                line-height: 28px;
+                font-size: 18px;
+            }
+            &:after {
+                position: absolute;
+                content: "";
+                border-bottom: 1px dotted rgb(193, 68, 122);
+                right: 0;
+                bottom: 24px;
+                width: 100%;
+                z-index: -1;
+            }
+        }
+        
+    }
+    &__value {
+        font-size: 22px;
+        font-weight: 600;
+        background: #fff;
+
+        &--empty{
+            text-align: center;
+            margin: 0;
+            color: rgb(41, 180, 180);
+            font-style: italic;
+        }
+    }
+    &__img {
+        width:70%;
+        height: auto;
+        margin-left: 15%;
+    }
+    &__btn {
+        margin-top: 30px;
+        width: 100%;
+        display: flex;
+        justify-content: end;
+    }
+}
