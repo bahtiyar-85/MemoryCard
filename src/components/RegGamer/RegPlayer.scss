@@ -40,6 +40,17 @@
         }
     }
 }
+@media(max-width:400px){
+    .main__title {
+        font-size: 60px;
+    }
+}
+@media(max-width:360px){
+    .main {
+        width: 100%;
+     
+    }
+}
 
 .button-78 {
   align-items: center;

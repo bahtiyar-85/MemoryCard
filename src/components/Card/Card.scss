@@ -2,8 +2,8 @@
    
     background-color: rgb(79, 144, 209);
     perspective:1000px;
-    height: calc((100vh - 290px) / 6);
-    max-height: calc((100vw - 90px) / 6);
+    height: calc((100vh - 290px) / 4);
+    max-height: calc((100vw - 90px) / 4);
     border-radius: 10px;
     &__inner {
         position: relative;

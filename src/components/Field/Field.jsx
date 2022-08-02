@@ -100,17 +100,11 @@ const Field = ({array, setArray, player}) => {
 
                 </div>
                 <div className="items__down">
-                    <button className='button-22' onClick={setDefaultValues}>New start</button>
-                    <button className='button-22' onClick={()=> navigate('/list')}>to Top List</button>
-                    <button className='button-22' onClick={()=> navigate('/')}>to Main</button>
+                    <button className='button-22 items--width' onClick={setDefaultValues}>New start</button>
+                    <button className='button-22 items--width' onClick={()=> navigate('/list')}>Top List</button>
+                    <button className='button-22 items--width' onClick={()=> navigate('/')}>to Main</button>
                 </div>
             </div>
-            {/* <button onClick={() => {
-                        pause()
-                        setShowModal(true)
-                        setPlayerToStorage(player, time*count)
-                    }
-                        }>Open</button> */}
             <Modal 
                 active={showModal} 
                 setActive={setShowModal} 

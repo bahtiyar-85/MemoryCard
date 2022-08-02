@@ -8,7 +8,7 @@ const RegPlayer = ({setArray, setPlayer}) => {
     const [value, setValue] = useState('')
 
     const getImage = async () => {
-        await fetch("https://pokeapi.co/api/v2/pokemon?limit=15")
+        await fetch("https://pokeapi.co/api/v2/pokemon?limit=8")
             .then(responce => responce.json())
             .then(data => setArray(fyShuffle(data.results.concat(data.results))))
             .catch(error => console.log(error))
