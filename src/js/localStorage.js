@@ -1,9 +1,11 @@
 
-export const setPlayerToStorage = ( name, score) => {
+export const setPlayerToStorage = ( name, count, time) => {
     const leaderList = JSON.parse(localStorage.getItem("leaderlist")) || []
     const obj = {
         nickname: name,
-        score: score
+        clicks: count,
+        time: time,
+        score: count*time
     }
     leaderList.push(obj)
     leaderList.sort((a, b) => a.score - b.score)

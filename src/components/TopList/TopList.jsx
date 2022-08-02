@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getListFromStorage } from '../../js/localStorage';
 import { useNavigate} from 'react-router-dom';
+import { convert } from '../Field/Field';
 import "./TopList.scss"
 
 const TopList = () => {
@@ -15,12 +16,20 @@ const TopList = () => {
         <div className="container">
             <div className='top-list'>
                 <h5 className='top-list__title'>Top list</h5>
+                <div className="top-list__titles">
+                    <span className='top-list__value top-list__value--bold'>Players</span>
+                    <span className='top-list__value top-list__value--bold'>clicks</span>
+                    <span className='top-list__value top-list__value--bold'>time</span>
+                    <span className='top-list__value top-list__value--bold'>score</span>
+                </div>
                 <ol className='top-list__list'>
                     {list.length > 0 ? (
                         list.map((item, index) => {
                             return(
                                 <li className='top-list__list-item' key={index}>
                                     <span className='top-list__value'>{item.nickname}</span>
+                                    <span className='top-list__value'>{item.clicks}</span>
+                                    <span className='top-list__value'>{convert(Math.floor(item.time/60))}:{convert(item.time % 60)}</span>
                                     <span className='top-list__value'>{item.score}</span>
                                 </li>
                             )

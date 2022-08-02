@@ -11,6 +11,11 @@
         text-transform: uppercase;
         color: rgb(185, 85, 145);
     }
+    &__titles {
+        display: flex;
+        justify-content: space-between;
+        padding-left: 30px;
+    }
     &__list {
         list-style-type: none; 
         counter-reset: num;
@@ -65,6 +70,9 @@
             color: rgb(41, 180, 180);
             font-style: italic;
         }
+        &--bold {
+            color: #ac253d;
+        }
     }
     &__img {
         width:70%;
@@ -76,5 +84,10 @@
         width: 100%;
         display: flex;
         justify-content: end;
+    }
+}
+@media(max-width:650px){
+    .top-list__value {
+        font-size: 18px;
     }
 }

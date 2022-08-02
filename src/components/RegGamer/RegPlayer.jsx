@@ -23,7 +23,7 @@ const RegPlayer = ({setArray, setPlayer}) => {
         }
     }
 
-    useEffect(()=> {
+    useEffect(() => {
         getImage()
     },[])
 

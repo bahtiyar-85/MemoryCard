@@ -15,6 +15,10 @@ export const fyShuffle = (arr) => {
     return arr;
 }
 
+export const convert = (num) => {
+    return num?.toString().padStart(2, "0");
+}
+
 const Field = ({array, setArray, player}) => {
     const [activeCards, setActiveCards] = useState([]);
     const [foundCards, setFoundCards] = useState([]);
@@ -22,20 +26,16 @@ const Field = ({array, setArray, player}) => {
     const [count, setCount] = useState(0)
     const [showModal, setShowModal] = useState(false)
     const navigate = useNavigate()   
-    const { time, start, pause, reset, status } = useTimer();
+    const { time, start, pause, reset } = useTimer();
    
     const setDefaultValues = () => {
         setShowModal(false)
+        setActiveCards([])
         setArray(fyShuffle(array))
         setFoundCards([]);
-        setActiveCards([])
         setCount(0);
         reset()
         start()
-    }
-
-    const convert = (num) => {
-        return num?.toString().padStart(2, "0");
     }
 
     const handlerCardClick = (index) => { 
@@ -65,7 +65,7 @@ const Field = ({array, setArray, player}) => {
             setTimeout(() => {
                 setShowModal(true)
                 pause()
-                setPlayerToStorage(player, time*count)
+                setPlayerToStorage(player, count, time)
             }, 500)
         } 
         setWin(false)   
@@ -111,6 +111,7 @@ const Field = ({array, setArray, player}) => {
                 setDefaultValues={setDefaultValues}
                 count={count}
                 time={time}
+                player={player}
             />
         </>
     );
